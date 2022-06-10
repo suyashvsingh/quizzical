@@ -1,13 +1,33 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Question from './Question'
 import Footer from './Footer'
 import QuestionOver from './QuestionOver'
 
-import data from "../data/data" //fetchURL
-
 function Quizpage({ setDisplayQuestionsPage }) {
 
-    const [currSetup, setCurrSetup] = useState([...data])
+    const [currSetup, setCurrSetup] = useState([])
+
+    useEffect(() => {
+        const url = `${process.env.REACT_APP_URL}?limit=${process.env.REACT_APP_LIMIT}`
+        fetch(url)
+            .then(res => res.json())
+            .then(data => {
+                //transform to use it
+                let newData = []
+                data.forEach((que) => {
+                    let newObj = {}
+                    newObj.selected = -1
+                    newObj.question = que.question
+                    let correctAnsPosition = Math.floor(Math.random() * 4)
+                    newObj.correct = correctAnsPosition
+                    newObj.options = [...que.incorrectAnswers]
+                    newObj.options.splice(correctAnsPosition, 0, que.correctAnswer)
+                    newData.push(newObj)
+                })
+                setCurrSetup(newData)
+            })
+    }, [])
+
     const [over, setOver] = useState(false)
     const [points, setPoints] = useState(0)
 
