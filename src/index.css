@@ -88,6 +88,14 @@ body {
   background-color: #D6DBF5;
 }
 
+.opt--correct {
+  background-color: #94D7A2;
+}
+
+.opt--incorrect {
+  background-color: #F8BCBC;
+}
+
 .footer {
   width: 100%;
   display: flex;

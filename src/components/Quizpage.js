@@ -2,15 +2,14 @@ import React, { useState } from 'react'
 import Question from './Question'
 import Footer from './Footer'
 
-import data from "../data/data"
+import data from "../data/data" //fetchURL
+import Question_Over from './Question_Over'
 
 function Quizpage({ setDisplayQuestionsPage }) {
 
     const [currSetup, setCurrSetup] = useState([...data])
     const [over, setOver] = useState(false)
     const [points, setPoints] = useState(0)
-
-    console.log(currSetup)
 
     function onClickOption(queId, optId) {
         setCurrSetup((prevState) => {
@@ -35,13 +34,19 @@ function Quizpage({ setDisplayQuestionsPage }) {
     }
 
     let questionList = currSetup.map((question, idx) => {
-        return <Question quesTitle={question.question} optionsArray={question.options} queId={idx} onClickOption={onClickOption} selected={question.selected} key={idx} correctAns={question.correct} />
+        return <Question quesTitle={question.question} optionsArray={question.options} queId={idx} onClickOption={onClickOption} selected={question.selected} key={idx} />
+
+    })
+
+    let questionListAfterOver = currSetup.map((question, idx) => {
+        return <Question_Over quesTitle={question.question} optionsArray={question.options} queId={idx} onClickOption={onClickOption} selected={question.selected} key={idx} correctAns={question.correct} />
     })
 
     return (
         <section className="quizpage">
             <h2 className='heading'>Questions</h2>
-            {questionList}
+            {over || questionList}
+            {over && questionListAfterOver}
             <Footer onClickCheckAnswers={onClickCheckAnswers} over={over} points={points} />
         </section>
     )
