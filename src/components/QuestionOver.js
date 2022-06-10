@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Question_Over({ quesTitle, optionsArray, queId, selected, correctAns }) {
+function QuestionOver({ quesTitle, optionsArray, queId, selected, correctAns }) {
 
     let options = optionsArray.map((option, optionId) => {
         return <div className={`opt ${optionId === correctAns ? 'opt--correct' : ''} ${optionId === selected && selected !== correctAns ? 'opt--incorrect' : ''}`} key={optionId}>{option}</div>
@@ -16,4 +16,4 @@ function Question_Over({ quesTitle, optionsArray, queId, selected, correctAns })
     )
 }
 
-export default Question_Over
+export default QuestionOver

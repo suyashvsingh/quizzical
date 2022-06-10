@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import Question from './Question'
 import Footer from './Footer'
+import QuestionOver from './QuestionOver'
 
 import data from "../data/data" //fetchURL
-import Question_Over from './Question_Over'
 
 function Quizpage({ setDisplayQuestionsPage }) {
 
@@ -39,7 +39,7 @@ function Quizpage({ setDisplayQuestionsPage }) {
     })
 
     let questionListAfterOver = currSetup.map((question, idx) => {
-        return <Question_Over quesTitle={question.question} optionsArray={question.options} queId={idx} onClickOption={onClickOption} selected={question.selected} key={idx} correctAns={question.correct} />
+        return <QuestionOver quesTitle={question.question} optionsArray={question.options} queId={idx} onClickOption={onClickOption} selected={question.selected} key={idx} correctAns={question.correct} />
     })
 
     return (
