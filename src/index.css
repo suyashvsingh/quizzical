@@ -117,3 +117,7 @@ body {
   font-weight: 700;
   color: #293264;
 }
+
+::-webkit-scrollbar {
+  display: none;
+}
