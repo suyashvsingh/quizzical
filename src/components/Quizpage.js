@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
+import ClipLoader from "react-spinners/ClipLoader";
 import Question from "./Question";
 import Footer from "./Footer";
 import QuestionOver from "./QuestionOver";
 
 function Quizpage({ setDisplayQuestionsPage }) {
+  const [loading, setLoading] = useState(true);
   const [currSetup, setCurrSetup] = useState([]);
 
   useEffect(() => {
@@ -24,6 +26,7 @@ function Quizpage({ setDisplayQuestionsPage }) {
           newData.push(newObj);
         });
         setCurrSetup(newData);
+        setLoading(false);
       });
   }, []);
 
@@ -81,13 +84,16 @@ function Quizpage({ setDisplayQuestionsPage }) {
   return (
     <section className="quizpage">
       <h2 className="heading">Questions</h2>
+      <ClipLoader color="#4d5b9e" loading={loading} />
       {over || questionList}
       {over && questionListAfterOver}
-      <Footer
-        onClickCheckAnswers={onClickCheckAnswers}
-        over={over}
-        points={points}
-      />
+      {loading || (
+        <Footer
+          onClickCheckAnswers={onClickCheckAnswers}
+          over={over}
+          points={points}
+        />
+      )}
     </section>
   );
 }

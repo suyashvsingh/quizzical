@@ -84,6 +84,16 @@ body {
   padding: 0.8em 1em;
 }
 
+@media only screen and (min-width: 720px) {
+  .opts {
+    display: flex;
+  }
+  .opt {
+    width: 25%;
+    text-align: center;
+  }
+}
+
 .opt--selected {
   background-color: #d6dbf5;
 }
