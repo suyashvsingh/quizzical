@@ -9,7 +9,7 @@ function Entrypage() {
     <section className="entrypage">
       <div className="entrypage--content">
         <h2 className="heading">Quizzical</h2>
-        <p className="desc">Best game on the planet</p>
+        <p className="desc">Test your GK 😀</p>
         <button className="startbtn" onClick={onClickStart}>
           Start Quiz
         </button>

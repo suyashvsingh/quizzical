@@ -3,6 +3,7 @@ import Entrypage from "./components/Entrypage";
 import { useState } from "react";
 import AppContext from "./components/context";
 import axios from "axios";
+import Confetti from "react-confetti";
 
 function App() {
   const [displayQuestionsPge, setDisplayQuestionsPage] = useState(false);
@@ -10,6 +11,12 @@ function App() {
   const [currSetup, setCurrSetup] = useState([]);
   const [over, setOver] = useState(false);
   const [points, setPoints] = useState(0);
+
+  function onClickStart() {
+    setDisplayQuestionsPage(true);
+    setLoading(true);
+    setOver(false);
+  }
 
   async function fetchData() {
     const url = `${process.env.REACT_APP_URL}`;
@@ -23,19 +30,18 @@ function App() {
   }
 
   function setData(data) {
-    let newData = [];
-    data.forEach((que) => {
+    let formattedData = data.map((que) => {
       let correctAnsPosition = Math.floor(Math.random() * 4);
-      let newObj = {
+      let obj = {
         selected: -1,
         question: que.question,
         correct: correctAnsPosition,
         options: [...que.incorrectAnswers],
       };
-      newObj.options.splice(correctAnsPosition, 0, que.correctAnswer);
-      newData.push(newObj);
+      obj.options.splice(correctAnsPosition, 0, que.correctAnswer);
+      return obj;
     });
-    setCurrSetup(newData);
+    setCurrSetup(formattedData);
     setLoading(false);
   }
 
@@ -49,6 +55,7 @@ function App() {
 
   function onClickCheckAnswers() {
     if (over) {
+      setPoints(0);
       setDisplayQuestionsPage(false);
     } else {
       let correctCount = 0;
@@ -58,12 +65,6 @@ function App() {
       });
       setOver(true);
     }
-  }
-
-  function onClickStart() {
-    setDisplayQuestionsPage(true);
-    setLoading(true);
-    setOver(false);
   }
 
   return (
@@ -88,6 +89,7 @@ function App() {
       <div className="App">
         {displayQuestionsPge || <Entrypage />}
         {displayQuestionsPge && <Quizpage />}
+        {points === 5 && <Confetti />}
       </div>
     </AppContext.Provider>
   );

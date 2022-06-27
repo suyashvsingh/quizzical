@@ -10,7 +10,7 @@ function Footer() {
       <button className="checkans" onClick={onClickCheckAnswers}>{`${
         over ? "Play again" : "Check answers"
       }`}</button>
-      {over && <div className="points">{`You scored ${points} points`}</div>}
+      {over && <div className="points">{`You scored ${points} points 😉`}</div>}
     </div>
   );
 }
