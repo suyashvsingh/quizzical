@@ -1,12 +1,6 @@
 import React from "react";
 
-function QuestionOver({
-  quesTitle,
-  optionsArray,
-  queId,
-  selected,
-  correctAns,
-}) {
+function QuestionOver({ quesTitle, optionsArray, selected, correctAns }) {
   let options = optionsArray.map((option, optionId) => {
     return (
       <div

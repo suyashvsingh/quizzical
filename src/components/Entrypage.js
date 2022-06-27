@@ -1,6 +1,10 @@
 import React from "react";
+import { useContext } from "react";
+import AppContext from "./context";
 
-function Entrypage({ onClickStart }) {
+function Entrypage() {
+  const { onClickStart } = useContext(AppContext);
+
   return (
     <section className="entrypage">
       <div className="entrypage--content">

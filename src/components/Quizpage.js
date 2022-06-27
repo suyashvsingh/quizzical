@@ -1,58 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import ClipLoader from "react-spinners/ClipLoader";
 import Question from "./Question";
 import Footer from "./Footer";
 import QuestionOver from "./QuestionOver";
+import { useContext } from "react";
+import AppContext from "./context";
 
-function Quizpage({ setDisplayQuestionsPage }) {
-  const [loading, setLoading] = useState(true);
-  const [currSetup, setCurrSetup] = useState([]);
+function Quizpage() {
+  const { loading, currSetup, over, onClickOption, fetchData } =
+    useContext(AppContext);
 
   useEffect(() => {
-    const url = `${process.env.REACT_APP_URL}?limit=${process.env.REACT_APP_LIMIT}`;
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => {
-        //transform to use it
-        let newData = [];
-        data.forEach((que) => {
-          let newObj = {};
-          newObj.selected = -1;
-          newObj.question = que.question;
-          let correctAnsPosition = Math.floor(Math.random() * 4);
-          newObj.correct = correctAnsPosition;
-          newObj.options = [...que.incorrectAnswers];
-          newObj.options.splice(correctAnsPosition, 0, que.correctAnswer);
-          newData.push(newObj);
-        });
-        setCurrSetup(newData);
-        setLoading(false);
-      });
+    fetchData();
+    // eslint-disable-next-line
   }, []);
-
-  const [over, setOver] = useState(false);
-  const [points, setPoints] = useState(0);
-
-  function onClickOption(queId, optId) {
-    setCurrSetup((prevState) => {
-      let newState = [...prevState];
-      newState[queId].selected = optId;
-      return newState;
-    });
-  }
-
-  function onClickCheckAnswers() {
-    if (over) {
-      setDisplayQuestionsPage(false);
-    } else {
-      let correctCount = 0;
-      currSetup.forEach((question) => {
-        if (question.selected === question.correct) correctCount++;
-        setPoints(correctCount);
-      });
-      setOver(true);
-    }
-  }
 
   let questionList = currSetup.map((question, idx) => {
     return (
@@ -85,15 +46,9 @@ function Quizpage({ setDisplayQuestionsPage }) {
     <section className="quizpage">
       <h2 className="heading">Questions</h2>
       <ClipLoader color="#4d5b9e" loading={loading} />
-      {over || questionList}
-      {over && questionListAfterOver}
-      {loading || (
-        <Footer
-          onClickCheckAnswers={onClickCheckAnswers}
-          over={over}
-          points={points}
-        />
-      )}
+      {loading === false && over === false && questionList}
+      {loading === false && over === true && questionListAfterOver}
+      {loading === false && <Footer />}
     </section>
   );
 }
