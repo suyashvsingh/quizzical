@@ -4,11 +4,15 @@ function QuestionOver({ quesTitle, optionsArray, selected, correctAns }) {
   let options = optionsArray.map((option, optionId) => {
     return (
       <div
-        className={`opt ${optionId === correctAns ? "opt--correct" : ""} ${
-          optionId === selected && selected !== correctAns
-            ? "opt--incorrect"
-            : ""
-        }`}
+        className={`opt ${
+          optionId === correctAns && selected === -1 ? "opt--correct--alt" : ""
+        }
+          ${optionId === correctAns && selected !== -1 ? "opt--correct" : ""}
+          ${
+            optionId === selected && selected !== correctAns
+              ? "opt--incorrect"
+              : ""
+          }`}
         key={optionId}
       >
         {option}

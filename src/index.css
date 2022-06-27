@@ -98,8 +98,12 @@ body {
   background-color: #d6dbf5;
 }
 
+.opt--correct--alt {
+  background-color: #fbf4a7;
+}
+
 .opt--correct {
-  background-color: #94d7a2;
+  background-color: #b0ecbd;
 }
 
 .opt--incorrect {
