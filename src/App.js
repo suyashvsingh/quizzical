@@ -89,7 +89,9 @@ function App() {
       <div className="App">
         {displayQuestionsPge || <Entrypage />}
         {displayQuestionsPge && <Quizpage />}
-        {points === 5 && <Confetti />}
+        {points !== 5 && (
+          <Confetti height={document.documentElement.offsetHeight} />
+        )}
       </div>
     </AppContext.Provider>
   );
