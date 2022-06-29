@@ -3,7 +3,6 @@ import Entrypage from "./components/Entrypage";
 import { useState } from "react";
 import AppContext from "./components/context";
 import axios from "axios";
-import Confetti from "react-confetti";
 
 function App() {
   const [displayQuestionsPge, setDisplayQuestionsPage] = useState(false);
@@ -89,9 +88,6 @@ function App() {
       <div className="App">
         {displayQuestionsPge || <Entrypage />}
         {displayQuestionsPge && <Quizpage />}
-        {points !== 5 && (
-          <Confetti height={document.documentElement.offsetHeight} />
-        )}
       </div>
     </AppContext.Provider>
   );
