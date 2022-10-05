@@ -13,6 +13,11 @@ function Entrypage() {
         <button className="startbtn" onClick={onClickStart}>
           Start Quiz
         </button>
+        {/* display points in local storage */}
+        <p className="points">
+          MaxPoints:{" "}
+          {localStorage.getItem("points") ? localStorage.getItem("points") : 0}
+        </p>
       </div>
     </section>
   );

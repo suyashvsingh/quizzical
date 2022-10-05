@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useContext } from "react";
 import AppContext from "./context";
 
 function Footer() {
   const { onClickCheckAnswers, over, points } = useContext(AppContext);
+
+  useEffect(() => {
+    const previousPoints = localStorage.getItem("points");
+    if (previousPoints < points) {
+      localStorage.setItem("points", points);
+    }
+  }, [points]);
 
   return (
     <div className="footer">
