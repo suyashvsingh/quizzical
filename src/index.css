@@ -134,3 +134,9 @@ a,
 div {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
+
+.points{
+  font-weight: 700;
+  color: #293264;
+  margin-top: 10px ;
+}
